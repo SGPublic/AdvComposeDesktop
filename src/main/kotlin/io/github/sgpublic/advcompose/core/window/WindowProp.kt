@@ -8,11 +8,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import io.github.sgpublic.advcompose.core.PropBase
+import io.github.sgpublic.advcompose.core.component.ComponentProp
 
 abstract class WindowProp: PropBase() {
     val window: WindowPropInternal by mutableStateOf(WindowPropInternal())
 
     companion object {
+        class SampleWindowProp: WindowProp()
+
         class WindowPropInternal {
             var onCloseRequest: () -> Unit by mutableStateOf({ })
             var state: WindowState by mutableStateOf(object : WindowState {

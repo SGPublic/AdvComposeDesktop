@@ -1,4 +1,4 @@
-package com.sgpublic.ffmpgetool.core.util
+package io.github.sgpublic.advcompose.util
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -2,9 +2,12 @@ package io.github.sgpublic.advcompose.core.window
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.ui.window.Window
 import io.github.sgpublic.advcompose.AdvComposeApplication
 import io.github.sgpublic.advcompose.core.ComposeBase
+import io.github.sgpublic.advcompose.core.component.ComponentProp
+import io.github.sgpublic.advcompose.core.component.ComposeComponent
 import kotlin.reflect.KClass
 
 abstract class ComposeWindow<Prop: WindowProp>: ComposeBase<Prop>() {
@@ -48,20 +51,31 @@ abstract class ComposeWindow<Prop: WindowProp>: ComposeBase<Prop>() {
         AdvComposeApplication.finish()
     }
 
+    @Composable
+    protected final fun includeComponent(clazz: KClass<out ComposeComponent<out ComponentProp>>){
+        ComposeComponent.createComponent(clazz)
+    }
+
+    @ExperimentalComposeApi
+    @Composable
+    protected final fun <T: ComponentProp> includeComponent(clazz: KClass<out ComposeComponent<out T>>, prop: T){
+//        ComposeComponent.createComponent(clazz, prop)
+    }
+
     companion object {
         @JvmStatic
         @Composable
-        @Suppress("UNCHECKED_CAST")
-        internal fun createWindow(windowClass: KClass<out ComposeWindow<out WindowProp>>, prop: WindowProp? = null) {
-            windowClass.java.run {
-                if (prop == null){
-                    getDeclaredConstructor()
-                        .newInstance()
-                } else {
-                    getDeclaredConstructor(prop.javaClass)
-                        .newInstance(prop)
-                }
-            }.createWindow()
+        internal fun createWindow(windowClass: KClass<out ComposeWindow<out WindowProp>>) {
+            windowClass.java.getDeclaredConstructor()
+                .newInstance().createWindow()
+        }
+
+        @JvmStatic
+        @Composable
+        @ExperimentalComposeApi
+        internal fun <T: WindowProp> createWindow(windowClass: KClass<out ComposeWindow<T>>, prop: T) {
+            windowClass.java.getDeclaredConstructor(prop.javaClass)
+                .newInstance(prop).createWindow()
         }
     }
 }

@@ -2,7 +2,7 @@ package io.github.sgpublic.advcompose.logback.converter
 
 import ch.qos.logback.classic.pattern.ClassicConverter
 import ch.qos.logback.classic.spi.ILoggingEvent
-import com.sgpublic.ffmpgetool.core.util.Log
+import io.github.sgpublic.advcompose.util.Log
 
 /** 日志定位 trace */
 class TraceConverter: ClassicConverter() {

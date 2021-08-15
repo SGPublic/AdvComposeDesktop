@@ -22,8 +22,14 @@ abstract class ComposeComponent<Prop: ComponentProp>: ComposeBase<Prop>() {
         @Composable
         fun createComponent(componentClass: KClass<out ComposeComponent<out ComponentProp>>) {
             componentClass.java.getDeclaredConstructor()
-                .newInstance()
-                .createComponent()
+                .newInstance().createComponent()
+        }
+
+        @JvmStatic
+        @Composable
+        fun <T: ComponentProp> createComponent(componentClass: KClass<out ComposeComponent<T>>, prop: T) {
+            componentClass.java.getDeclaredConstructor(prop.javaClass)
+                .newInstance(prop).createComponent()
         }
     }
 }

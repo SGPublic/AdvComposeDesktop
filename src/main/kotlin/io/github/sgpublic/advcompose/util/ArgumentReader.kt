@@ -1,4 +1,4 @@
-package com.sgpublic.ffmpgetool.core.util
+package io.github.sgpublic.advcompose.util
 
 /**
  * 启动传参读取

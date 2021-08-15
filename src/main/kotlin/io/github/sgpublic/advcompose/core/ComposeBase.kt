@@ -9,8 +9,8 @@ abstract class ComposeBase<Prop: PropBase> {
     private val propState: MutableState<Prop>
     protected val prop: Prop get() = propState.value
 
-    @Suppress("UNCHECKED_CAST")
     constructor(){
+        @Suppress("UNCHECKED_CAST")
         val propInterface = ((javaClass.genericSuperclass as ParameterizedType)
             .actualTypeArguments[0] as Class<Prop>)
             .getDeclaredConstructor().newInstance()
@@ -18,7 +18,6 @@ abstract class ComposeBase<Prop: PropBase> {
     }
 
     constructor(prop: Prop){
-        @Suppress("UNCHECKED_CAST")
         this.propState = mutableStateOf(prop)
     }
 

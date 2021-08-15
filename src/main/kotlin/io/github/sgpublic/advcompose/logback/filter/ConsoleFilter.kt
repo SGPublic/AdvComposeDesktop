@@ -44,10 +44,6 @@ open class ConsoleFilter: AbstractMatcherFilter<ILoggingEvent>() {
         if (!isStarted) {
             return FilterReply.NEUTRAL
         }
-        return if (event.loggerName.startsWith("com.sgpublic")){
-            filterOnSelf(event)
-        } else {
-            filterOnOther(event)
-        }
+        return filterOnSelf(event)
     }
 }
